@@ -1,18 +1,18 @@
-package com.iamzhaoyuan.android.baking.util;
+package com.iamzhaoyuan.android.baking.utils;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
-public class NetworkUtil {
-    private static NetworkUtil instance = null;
+public class NetworkUtils {
+    private static NetworkUtils instance = null;
 
-    private NetworkUtil() {
+    private NetworkUtils() {
 
     }
 
-    public static synchronized NetworkUtil getInstance() {
-        if (instance == null) instance = new NetworkUtil();
+    public static synchronized NetworkUtils getInstance() {
+        if (instance == null) instance = new NetworkUtils();
         return instance;
     }
 

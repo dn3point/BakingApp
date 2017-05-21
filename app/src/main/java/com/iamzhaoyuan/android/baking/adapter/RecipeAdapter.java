@@ -18,27 +18,14 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class RecipeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private static final String LOG_TAG = RecipeAdapter.class.getSimpleName();
-
     public static final int VIEW_TYPE_RECIPE = 0;
-
+    private static final String LOG_TAG = RecipeAdapter.class.getSimpleName();
     private Context mContext;
     private List<Recipe> mRecipes;
 
     public RecipeAdapter(Context context, List<Recipe> recipes) {
         mContext = context;
         mRecipes = recipes;
-    }
-
-    class RecipeViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.recipe_name) TextView recipeName;
-        @BindView(R.id.recipe_num_of_ingredients) TextView numOfIngredients;
-        @BindView(R.id.recipe_num_of_steps) TextView numOfSteps;
-
-        public RecipeViewHolder(View itemView) {
-            super(itemView);
-            ButterKnife.bind(this, itemView);
-        }
     }
 
     @Override
@@ -59,7 +46,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         if (VIEW_TYPE_RECIPE == viewType) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recipe_card, parent, false);
             return new RecipeViewHolder(view);
-        }  else {
+        } else {
             Log.d(LOG_TAG, "View type is : " + viewType + "?");
         }
         return null;
@@ -84,5 +71,19 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         int startPosition = mRecipes == null ? 0 : mRecipes.size();
         mRecipes.addAll(recipes);
         notifyItemRangeInserted(startPosition, recipes.size() - 1);
+    }
+
+    class RecipeViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.recipe_name)
+        TextView recipeName;
+        @BindView(R.id.recipe_num_of_ingredients)
+        TextView numOfIngredients;
+        @BindView(R.id.recipe_num_of_steps)
+        TextView numOfSteps;
+
+        public RecipeViewHolder(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+        }
     }
 }

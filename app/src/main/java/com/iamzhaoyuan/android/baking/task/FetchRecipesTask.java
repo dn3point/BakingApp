@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FetchRecipesTask extends AsyncTask<Void, Void, List<Recipe>> {
-    public static final String LOG_TAG = FetchRecipesTask.class.getName();
+    private static final String LOG_TAG = FetchRecipesTask.class.getName();
 
     public interface AsyncResponse {
         void processFinish(List<Recipe> recipes);

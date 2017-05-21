@@ -18,7 +18,7 @@ import com.iamzhaoyuan.android.baking.adapter.RecipeAdapter;
 import com.iamzhaoyuan.android.baking.dto.Recipe;
 import com.iamzhaoyuan.android.baking.task.FetchRecipesTask;
 import com.iamzhaoyuan.android.baking.task.FetchRecipesTask.AsyncResponse;
-import com.iamzhaoyuan.android.baking.util.NetworkUtil;
+import com.iamzhaoyuan.android.baking.utils.NetworkUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,15 +29,16 @@ import butterknife.ButterKnife;
 public class RecipeListFragment extends Fragment implements AsyncResponse {
     private static final String LOG_TAG = RecipeListFragment.class.getSimpleName();
 
-    @BindView(R.id.recipes_recycler_view) RecyclerView mRecyclerView;
+    @BindView(R.id.recipes_recycler_view)
+    RecyclerView mRecyclerView;
 
     private RecipeAdapter mRecipeAdapter;
 
     private BroadcastReceiver mNetworkReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            NetworkUtil networkUtil = NetworkUtil.getInstance();
-            if (networkUtil.isNetworkConnected(context)) {
+            NetworkUtils networkUtils = NetworkUtils.getInstance();
+            if (networkUtils.isNetworkConnected(context)) {
                 getData();
             }
         }
@@ -64,7 +65,7 @@ public class RecipeListFragment extends Fragment implements AsyncResponse {
     @Override
     public void onStart() {
         super.onStart();
-        if (NetworkUtil.getInstance().isNetworkConnected(getActivity())) {
+        if (NetworkUtils.getInstance().isNetworkConnected(getActivity())) {
             getData();
         }
     }
@@ -85,7 +86,7 @@ public class RecipeListFragment extends Fragment implements AsyncResponse {
         ButterKnife.bind(this, rootView);
 
         mRecipeAdapter = new RecipeAdapter(getActivity(), new ArrayList<Recipe>());
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity(), 1);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getActivity(), getResources().getInteger(R.integer.col_num_of_grid));
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setAdapter(mRecipeAdapter);
