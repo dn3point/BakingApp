@@ -121,7 +121,7 @@ public class RecipeListFragment extends Fragment implements AsyncResponse {
     @Override
     public void processFinish(List<Recipe> recipes) {
         if (!recipes.isEmpty()) {
-            mRecipeAdapter.cleanRecipes();
+            mRecipeAdapter.clearRecipes();
             mRecipeAdapter.addRecipes(recipes);
         }
     }

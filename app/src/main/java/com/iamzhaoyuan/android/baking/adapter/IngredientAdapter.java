@@ -19,25 +19,14 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class IngredientAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private static final String LOG_TAG = IngredientAdapter.class.getSimpleName();
     public static final int VIEW_TYPE_INGREDIENT = 0;
-
+    private static final String LOG_TAG = IngredientAdapter.class.getSimpleName();
     private Context mContext;
     private List<Ingredient> mIngredients;
 
     public IngredientAdapter(Context context, List<Ingredient> ingredients) {
         mContext = context;
         mIngredients = ingredients;
-    }
-
-    class IngredientViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.recipe_ingredient)
-        TextView ingredient;
-
-        public IngredientViewHolder(View itemView) {
-            super(itemView);
-            ButterKnife.bind(this, itemView);
-        }
     }
 
     @Override
@@ -69,6 +58,32 @@ public class IngredientAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Override
     public int getItemCount() {
-        return 0;
+        return mIngredients == null ? 0 : mIngredients.size();
+    }
+
+    public void addIngredients(List<Ingredient> ingredients) {
+        int startPosition = mIngredients == null ? 0 : mIngredients.size();
+        mIngredients.addAll(ingredients);
+        notifyItemRangeInserted(startPosition, ingredients.size() - 1);
+    }
+
+    public void clearIngredients() {
+        int size = mIngredients.size();
+        if (size > 0) {
+            for (int i = 0; i < size; i++) {
+                mIngredients.remove(0);
+            }
+            notifyItemRangeRemoved(0, size);
+        }
+    }
+
+    class IngredientViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.recipe_ingredient)
+        TextView ingredient;
+
+        public IngredientViewHolder(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+        }
     }
 }
