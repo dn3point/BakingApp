@@ -45,11 +45,12 @@ public class IngredientAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         if (holder instanceof IngredientViewHolder) {
             IngredientViewHolder ingredientHolder = (IngredientViewHolder) holder;
             Ingredient ingredient = mIngredients.get(position);
-            StringBuilder sb = new StringBuilder(ingredient.getQuantity()).append(" ").append(ingredient.getMeasure().toLowerCase());
+            StringBuilder sb = new StringBuilder(ingredient.getQuantity() + "").append(" ").append(ingredient.getMeasure().toLowerCase());
             if (ingredient.getQuantity() > 1) {
                 sb.append("s");
             }
             sb.append(" ").append(ingredient.getIngredient());
+            Log.d(LOG_TAG, sb.toString());
             ingredientHolder.ingredient.setText(sb.toString());
         } else {
             Log.d(LOG_TAG, "ViewHolder type issue: " + holder.getClass().getSimpleName());

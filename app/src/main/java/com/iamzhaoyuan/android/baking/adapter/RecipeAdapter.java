@@ -32,10 +32,16 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public void onBindViewHolder(ViewHolder holder, int position) {
         if (holder instanceof RecipeViewHolder) {
             RecipeViewHolder recipeViewHolder = (RecipeViewHolder) holder;
-            Recipe recipe = mRecipes.get(position);
+            final Recipe recipe = mRecipes.get(position);
             recipeViewHolder.recipeName.setText(recipe.getName());
             recipeViewHolder.numOfIngredients.setText(recipe.getIngredients().size() + "");
             recipeViewHolder.numOfSteps.setText(recipe.getRecipeSteps().size() + "");
+            recipeViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ((Callback)mContext).onItemSelected(recipe);
+                }
+            });
         } else {
             Log.d(LOG_TAG, "ViewHolder type issue: " + holder.getClass().getSimpleName());
         }
@@ -85,5 +91,9 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
+    }
+
+    public interface Callback {
+        void onItemSelected(Recipe recipe);
     }
 }

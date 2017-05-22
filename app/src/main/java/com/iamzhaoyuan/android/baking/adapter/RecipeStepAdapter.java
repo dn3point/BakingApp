@@ -46,7 +46,9 @@ public class RecipeStepAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         if (holder instanceof RecipeStepViewHolder) {
             RecipeStepViewHolder viewHolder = (RecipeStepViewHolder) holder;
             RecipeStep recipeStep = mRecipeSteps.get(position);
-            viewHolder.recipeStep.setText(new StringBuilder(recipeStep.getId() + 1).append(" ").append(recipeStep.getShortDescription()));
+            StringBuilder sb = new StringBuilder(recipeStep.getId() + 1 + "").append(" ").append(recipeStep.getShortDescription());
+            Log.d(LOG_TAG, sb.toString());
+            viewHolder.recipeStep.setText(sb.toString());
         } else {
             Log.d(LOG_TAG, "ViewHolder type issue: " + holder.getClass().getSimpleName());
         }
@@ -54,7 +56,7 @@ public class RecipeStepAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Override
     public int getItemCount() {
-        return 0;
+        return mRecipeSteps.size();
     }
 
     public void addRecipeSteps(List<RecipeStep> recipeSteps) {

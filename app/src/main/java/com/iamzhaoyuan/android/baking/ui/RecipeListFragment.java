@@ -3,6 +3,8 @@ package com.iamzhaoyuan.android.baking.ui;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -44,22 +46,22 @@ public class RecipeListFragment extends Fragment implements AsyncResponse {
         }
     };
 
-    private static final String PARAM_NUM_OF_COLUMNS = "num_of_columns";
+    @Override
+    public void onResume() {
+        super.onResume();
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+        getActivity().registerReceiver(mNetworkReceiver, intentFilter);
+    }
 
-    private int mParamNumOfColumns;
-
-    private OnRecipeClickListener mListener;
+    @Override
+    public void onPause() {
+        super.onPause();
+        getActivity().unregisterReceiver(mNetworkReceiver);
+    }
 
     public RecipeListFragment() {
         // Required empty public constructor
-    }
-
-    public static RecipeListFragment newInstance(int paramNumOfColumns) {
-        RecipeListFragment fragment = new RecipeListFragment();
-        Bundle args = new Bundle();
-        args.putInt(PARAM_NUM_OF_COLUMNS, paramNumOfColumns);
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override
@@ -67,14 +69,6 @@ public class RecipeListFragment extends Fragment implements AsyncResponse {
         super.onStart();
         if (NetworkUtils.getInstance().isNetworkConnected(getActivity())) {
             getData();
-        }
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParamNumOfColumns = getArguments().getInt(PARAM_NUM_OF_COLUMNS);
         }
     }
 
@@ -90,32 +84,8 @@ public class RecipeListFragment extends Fragment implements AsyncResponse {
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setAdapter(mRecipeAdapter);
-        // TODO
-        mRecyclerView.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mListener.onRecipeSelected(0);
-            }
-        });
 
         return rootView;
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnRecipeClickListener) {
-            mListener = (OnRecipeClickListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnRecipeClickListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
     }
 
     @Override
@@ -128,9 +98,5 @@ public class RecipeListFragment extends Fragment implements AsyncResponse {
 
     private void getData() {
         new FetchRecipesTask(this).execute();
-    }
-
-    public interface OnRecipeClickListener {
-        void onRecipeSelected(int position);
     }
 }
