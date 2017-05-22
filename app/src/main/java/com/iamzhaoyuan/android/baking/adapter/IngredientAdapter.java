@@ -45,13 +45,9 @@ public class IngredientAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         if (holder instanceof IngredientViewHolder) {
             IngredientViewHolder ingredientHolder = (IngredientViewHolder) holder;
             Ingredient ingredient = mIngredients.get(position);
-            StringBuilder sb = new StringBuilder(ingredient.getQuantity() + "").append(" ").append(ingredient.getMeasure().toLowerCase());
-            if (ingredient.getQuantity() > 1) {
-                sb.append("s");
-            }
-            sb.append(" ").append(ingredient.getIngredient());
-            Log.d(LOG_TAG, sb.toString());
-            ingredientHolder.ingredient.setText(sb.toString());
+            ingredientHolder.quantity.setText(ingredient.getQuantity() + "");
+            ingredientHolder.measure.setText(ingredient.getMeasure().toUpperCase());
+            ingredientHolder.name.setText(ingredient.getIngredient().toLowerCase());
         } else {
             Log.d(LOG_TAG, "ViewHolder type issue: " + holder.getClass().getSimpleName());
         }
@@ -79,8 +75,12 @@ public class IngredientAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     class IngredientViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.recipe_ingredient)
-        TextView ingredient;
+        @BindView(R.id.recipe_ingredient_quantity)
+        TextView quantity;
+        @BindView(R.id.recipe_ingredient_measure)
+        TextView measure;
+        @BindView(R.id.recipe_ingredient_name)
+        TextView name;
 
         public IngredientViewHolder(View itemView) {
             super(itemView);

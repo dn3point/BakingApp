@@ -7,20 +7,12 @@
               android:paddingStart="16dp">
 
     <TextView
-        android:id="@+id/recipe_step_number"
-        android:text="1"
-        android:layout_width="56dp"
-        android:layout_height="match_parent"
-        android:gravity="center_vertical"
-        android:textSize="16sp"
-        android:textColor="@color/primary_text"/>
-    <TextView
-        android:id="@+id/recipe_step_desc"
+        android:id="@+id/recipe_details_title"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Add water"
+        android:text="Tittle"
         android:gravity="center_vertical"
-        android:textSize="16sp"
-        android:textColor="@color/primary_text"/>
+        android:textSize="14sp"
+        android:textColor="@color/secondary_text"/>
 
 </LinearLayout>

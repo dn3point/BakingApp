@@ -21,6 +21,7 @@ import butterknife.ButterKnife;
 public class RecipeStepAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final String LOG_TAG = RecipeStepAdapter.class.getSimpleName();
     public static final int VIEW_TYPE_STEP = 0;
+    public static final int VIEW_TYPE_TITLE = 1;
 
     private Context mContext;
     private List<RecipeStep> mRecipeSteps;
@@ -46,9 +47,8 @@ public class RecipeStepAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         if (holder instanceof RecipeStepViewHolder) {
             RecipeStepViewHolder viewHolder = (RecipeStepViewHolder) holder;
             RecipeStep recipeStep = mRecipeSteps.get(position);
-            StringBuilder sb = new StringBuilder(recipeStep.getId() + 1 + "").append(" ").append(recipeStep.getShortDescription());
-            Log.d(LOG_TAG, sb.toString());
-            viewHolder.recipeStep.setText(sb.toString());
+            viewHolder.recipeStepNumber.setText(recipeStep.getId() + 1 + "");
+            viewHolder.recipeStepDesc.setText(recipeStep.getShortDescription());
         } else {
             Log.d(LOG_TAG, "ViewHolder type issue: " + holder.getClass().getSimpleName());
         }
@@ -56,7 +56,7 @@ public class RecipeStepAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Override
     public int getItemCount() {
-        return mRecipeSteps.size();
+        return mRecipeSteps == null ? 0 : mRecipeSteps.size();
     }
 
     public void addRecipeSteps(List<RecipeStep> recipeSteps) {
@@ -76,8 +76,10 @@ public class RecipeStepAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     class RecipeStepViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.recipe_step)
-        TextView recipeStep;
+        @BindView(R.id.recipe_step_number)
+        TextView recipeStepNumber;
+        @BindView(R.id.recipe_step_desc)
+        TextView recipeStepDesc;
 
         public RecipeStepViewHolder(View itemView) {
             super(itemView);
