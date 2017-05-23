@@ -67,4 +67,13 @@ public class RecipeDetailsFragment extends Fragment {
         return rootView;
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (getArguments() == null) {
+            Bundle bundle = new Bundle();
+            bundle.putParcelable(getString(R.string.intent_key_recipe), mRecipe);
+            setArguments(bundle);
+        }
+    }
 }
