@@ -5,5 +5,12 @@
     <string name="txt_ingredients">\u0020kinds of ingredients</string>
     <string name="title_ingredients">Ingredients</string>
     <string name="title_steps">Steps</string>
+
     <string name="intent_key_recipe">intent_recipe</string>
+    <string name="intent_key_recipe_steps">intent_recipe_steps</string>
+    <string name="intent_key_recipe_step_position">intent_recipe_step_position</string>
+
+    <string name="key_recipe_step_position">recipe_step_position</string>
+    <string name="key_recipe_step_detail">recipe_step_detail</string>
+
 </resources>
