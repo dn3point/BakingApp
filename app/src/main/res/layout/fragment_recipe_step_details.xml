@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical"
@@ -11,26 +10,23 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
-        android:layout_weight="1"
-        />
+        android:layout_weight="1"/>
 
-    <ImageView
-        android:id="@+id/thumbnail_image"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_margin="8dp"
-        android:layout_weight="1"
-        android:visibility="gone"/>
+        android:layout_weight="1">
 
-    <TextView
-        android:id="@+id/step_full_desc"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_margin="8dp"
-        android:layout_weight="1"
-        android:scrollbars="vertical"
-        android:text="4. Sift together the flour, cocoa, and salt in a small bowl and whisk until mixture is uniform and no clumps remain. "
-        android:textColor="@color/primary_text"
-        android:textSize="24sp"/>
+        <TextView
+            android:id="@+id/step_full_desc"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="8dp"
+            android:paddingBottom="8dp"
+            android:text="4. Sift together the flour, cocoa, and salt in a small bowl and whisk until mixture is uniform and no clumps remain. "
+            android:textColor="@color/primary_text"
+            android:textSize="16sp"/>
+
+    </ScrollView>
 
 </LinearLayout>

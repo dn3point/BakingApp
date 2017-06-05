@@ -40,10 +40,11 @@ public class RecipeDetailsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_recipe_details, container, false);
-        if (getActivity().getIntent() != null && getActivity().getIntent().getExtras() != null) {
+
+        if (savedInstanceState != null) {
+            mRecipe = savedInstanceState.getParcelable(getString(R.string.intent_key_recipe));
+        } else if (getActivity().getIntent() != null && getActivity().getIntent().getExtras() != null) {
             mRecipe = getActivity().getIntent().getExtras().getParcelable(getString(R.string.intent_key_recipe));
-        } else if (getArguments() != null) {
-            mRecipe = getArguments().getParcelable(getString(R.string.intent_key_recipe));
         } else {
             Log.d(LOG_TAG, "Intent from MainActivity is null?");
         }
@@ -68,7 +69,10 @@ public class RecipeDetailsFragment extends Fragment {
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(getString(R.string.intent_key_recipe), mRecipe);
     }
+
+
 }

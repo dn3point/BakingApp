@@ -28,11 +28,13 @@ public class RecipeActivity extends AppCompatActivity implements RecipeStepAdapt
         setContentView(R.layout.activity_recipe);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        if (getIntent() != null && getIntent().getExtras() != null) {
-            mRecipe = getIntent().getExtras().getParcelable(getString(R.string.intent_key_recipe));
-        }
-        if (mRecipe != null) {
-            getSupportActionBar().setTitle(mRecipe.getName());
+        if (savedInstanceState == null) {
+            if (getIntent() != null && getIntent().getExtras() != null) {
+                mRecipe = getIntent().getExtras().getParcelable(getString(R.string.intent_key_recipe));
+            }
+            if (mRecipe != null) {
+                getSupportActionBar().setTitle(mRecipe.getName());
+            }
         }
     }
 
